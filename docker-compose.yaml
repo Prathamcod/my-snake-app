@@ -1,0 +1,31 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: snake-backend
+    ports:
+      - "8002:8000"
+    environment:
+      DATABASE_URL: sqlite:////app/data/snake_arena.db
+      CORS_ORIGINS: '["http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:8081", "http://127.0.0.1:8081", "http://localhost:8082", "http://127.0.0.1:8082"]'
+    volumes:
+      - snake-data:/app/data
+    healthcheck:
+      test:
+        ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://localhost:8000/health')"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: snake-frontend
+    ports:
+      - "8082:5173"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  snake-data:
