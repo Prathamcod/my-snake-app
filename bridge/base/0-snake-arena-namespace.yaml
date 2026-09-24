@@ -1,8 +1,0 @@
-#! 0-snake-arena-namespace.yaml
-# Generated code, do not edit
-apiVersion: v1
-kind: Namespace
-metadata:
-    name: snake-arena
-    labels:
-        com.docker.compose.project: snake-arena
