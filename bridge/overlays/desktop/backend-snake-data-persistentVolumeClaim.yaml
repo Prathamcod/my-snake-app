@@ -1,0 +1,9 @@
+#! backend-snake-data-persistentVolumeClaim.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+    name: backend-snake-data
+    namespace: snake-arena
+spec:
+    storageClassName: "hostpath" # see docker/desktop-storage-provisioner

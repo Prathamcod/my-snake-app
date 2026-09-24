@@ -1,0 +1,42 @@
+.DS_Store
+*.db
+*.sqlite
+*.sqlite3
+
+# Python environments and generated files
+.venv/
+**/.venv/
+__pycache__/
+**/__pycache__/
+.pytest_cache/
+**/.pytest_cache/
+*.py[cod]
+
+# JavaScript dependencies and build output
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+.output/
+**/.output/
+.tanstack/
+**/.tanstack/
+.nitro/
+**/.nitro/
+.vite/
+**/.vite/
+.wrangler/
+**/.wrangler/
+
+# Backend ignores
+backend/.venv/
+backend/__pycache__/
+backend/.pytest_cache/
+backend/*.db
+
+# Frontend ignores
+frontend/node_modules/
+frontend/dist/
+frontend/.tanstack/
+frontend/.output/
+frontend/.vite/

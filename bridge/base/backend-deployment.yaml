@@ -1,0 +1,50 @@
+#! backend-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend
+    namespace: snake-arena
+    labels:
+        com.docker.compose.project: snake-arena
+        com.docker.compose.service: backend
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: snake-arena
+            com.docker.compose.service: backend
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: snake-arena
+                com.docker.compose.service: backend
+                com.docker.compose.network.default: "true"
+        spec:
+            containers:
+                - name: backend
+                  image: snake-arena-backend
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: CORS_ORIGINS
+                      value: "[\"http://localhost:5173\", \"http://127.0.0.1:5173\", \"http://localhost:8081\", \"http://127.0.0.1:8081\"]"
+                    - name: DATABASE_URL
+                      value: "sqlite:////app/data/snake_arena.db"
+                  livenessProbe:
+                    exec:
+                        command: ['python -c from urllib.request import urlopen; urlopen(''http://localhost:8000/health'')']
+                    periodSeconds: 5
+                    timeoutSeconds: 3
+                    failureThreshold: 10
+                  ports:
+                    - name: backend-8000
+                      containerPort: 8000
+                  volumeMounts:
+                    - name: app-data
+                      mountPath: /app/data
+            volumes:
+                - name: app-data
+                  persistentVolumeClaim:
+                    claimName: backend-snake-data

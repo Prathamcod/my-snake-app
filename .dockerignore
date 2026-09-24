@@ -1,0 +1,11 @@
+.git
+.DS_Store
+backend/.venv
+backend/__pycache__
+backend/.pytest_cache
+backend/snake_arena.db
+frontend/node_modules
+frontend/dist
+frontend/.tanstack
+frontend/.output
+frontend/.vite
